@@ -1,0 +1,21 @@
+﻿<Grid x:Class="NV.Altitude2.Tracker.Views.ControlPanel.PipelineControlView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <ToggleButton Style="{StaticResource ControlPanelButtonStyle}">
+        Location
+    </ToggleButton>
+
+    <ToggleButton Grid.Column="1" Style="{StaticResource ControlPanelButtonStyle}">
+        Packaging
+    </ToggleButton>
+
+    <ToggleButton Grid.Column="2" Style="{StaticResource ControlPanelButtonStyle}">
+        Transmission
+    </ToggleButton>
+</Grid>

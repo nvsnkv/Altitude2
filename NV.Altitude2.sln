@@ -3,8 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{CABD1F8D-BC9A-435C-9A2F-BC88D39F6B97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{BC13729F-232C-46F6-8D03-AD0F9DFBF5BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NV.Altitude2.Domain", "Domain\NV.Altitude2.Domain\NV.Altitude2.Domain.csproj", "{80794048-256E-42C9-8F60-93DD76864148}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{80794048-256E-42C9-8F60-93DD76864148} = {CABD1F8D-BC9A-435C-9A2F-BC88D39F6B97}
 	EndGlobalSection
 EndGlobal

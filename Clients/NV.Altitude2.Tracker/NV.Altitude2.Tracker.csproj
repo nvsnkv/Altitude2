@@ -100,6 +100,8 @@
     <Compile Include="Models\Location\LocationChangedEventArgs.cs" />
     <Compile Include="Models\Location\LocationService.cs" />
     <Compile Include="Models\Location\LocationServiceState.cs" />
+    <Compile Include="Models\Packaging\PackageBuilder.cs" />
+    <Compile Include="Models\Pipeline\GenericState.cs" />
     <Compile Include="Models\Pipeline\InPipelineService.cs" />
     <Compile Include="Models\Pipeline\OutPipelineService.cs" />
     <Compile Include="Models\Pipeline\Pipeline.cs" />
@@ -186,7 +188,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Packaging\" />
     <Folder Include="Models\Transmission\" />
   </ItemGroup>
   <ItemGroup>

@@ -11,5 +11,13 @@
             Horizontal = horizontal;
             Vertical = vertical;
         }
+
+        public bool IsLessThan(Accuracy other)
+        {
+            if (ReferenceEquals(this, other)) return false;
+            if (ReferenceEquals(other, null)) return false;
+
+            return Vertical < other.Vertical && Horizontal < other.Horizontal;
+        }
     }
 }

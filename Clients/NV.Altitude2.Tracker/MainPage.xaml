@@ -3,10 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NV.Altitude2.Tracker"
-    xmlns:controlPanel="using:NV.Altitude2.Tracker.Views.ControlPanel">
+    xmlns:controlPanel="using:NV.Altitude2.Tracker.Views.ControlPanel"
+    xmlns:rightNow="using:NV.Altitude2.Tracker.Views.RightNow">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
+            <rightNow:RightNowView DataContext="{Binding RightNow}"/>
             <controlPanel:ControlPanelView DataContext="{Binding ControlPanel}"/>
         </Pivot>
 

@@ -1,0 +1,18 @@
+﻿<PivotItem
+    x:Class="NV.Altitude2.Tracker.Views.RightNow.RightNowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:rightNow="using:NV.Altitude2.Tracker.Views.RightNow">
+    <PivotItem.Header>
+        <TextBlock Style="{StaticResource SubheaderTextBlockStyle}">RIGHT NOW</TextBlock>
+    </PivotItem.Header>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/> 
+            <RowDefinition Height="Auto"/> 
+        </Grid.RowDefinitions>
+
+        <rightNow:PositionView DataContext="{Binding Position}"/>
+    </Grid>
+</PivotItem>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using NV.Altitude2.Tracker.Models.Pipeline;
 using NV.Altitude2.Domain;
 
@@ -20,5 +21,7 @@ namespace NV.Altitude2.Tracker.Models.Location
         {
             throw new System.NotImplementedException();
         }
+
+        internal event EventHandler<LocationChangedEventArgs> LocationChanged;
     }
 }

@@ -18,7 +18,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>NV.Altitude2.Tracker_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>C73CA4D08B5DFF06FB2D549F3823FA97A7EA13BC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>B6FF6E4D9D4C01F135AA36BA4CE71896322C6532</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -93,9 +93,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Location\LocationChangedEventArgs.cs" />
     <Compile Include="Models\Location\LocationService.cs" />
     <Compile Include="Models\Location\LocationServiceState.cs" />
     <Compile Include="Models\Pipeline\InPipelineService.cs" />
@@ -115,12 +117,20 @@
     <Compile Include="ViewModels\ControlPanel\IServiceTogglerViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\ServiceTogglerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RightNow\PositionViewModel.cs" />
+    <Compile Include="ViewModels\RightNow\RightNowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ControlPanel\ControlPanelView.xaml.cs">
       <DependentUpon>ControlPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlPanel\PipelineControlView.xaml.cs">
       <DependentUpon>PipelineControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RightNow\PositionView.xaml.cs">
+      <DependentUpon>PositionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RightNow\RightNowView.xaml.cs">
+      <DependentUpon>RightNowView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +175,14 @@
     <Page Include="Views\ControlPanel\PipelineControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RightNow\PositionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RightNow\RightNowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

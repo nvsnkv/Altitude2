@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NV.Altitude2.Tracker"
+    xmlns:converters="using:NV.Altitude2.Tracker.Converters"
     RequestedTheme="Dark">
     <Application.Resources>
         <ResourceDictionary>
@@ -12,6 +13,17 @@
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
                 </Style.Setters>
             </Style>
+
+            <Style x:Key="RightPositionedTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                <Style.Setters>
+                    <Setter Property="Margin" Value="5 0"/>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style.Setters>
+            </Style>
+
+            <converters:StringFormatConverter x:Key="DegreesConverter" Format="{}{0:F6}°" />
+            <converters:StringFormatConverter x:Key="MetersConverter" Format="{}{0:F2} m" />
+            <converters:StringFormatConverter x:Key="TimestampConverter" Format="{}{0:dd.MM.yyyy HH:mm:ss:fff}"></converters:StringFormatConverter>
         </ResourceDictionary>
     </Application.Resources>
 

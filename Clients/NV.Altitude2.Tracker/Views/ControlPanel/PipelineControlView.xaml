@@ -7,7 +7,7 @@
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <ToggleButton Style="{StaticResource ControlPanelButtonStyle}">
+    <ToggleButton Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding LocationService.IsEnabled, Mode=TwoWay}">
         Location
     </ToggleButton>
 

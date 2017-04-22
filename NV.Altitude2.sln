@@ -41,6 +41,7 @@ Global
 		{80794048-256E-42C9-8F60-93DD76864148}.Debug Tracker - Device|x86.Build.0 = Debug|Any CPU
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.ActiveCfg = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.Build.0 = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.Deploy.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|ARM.ActiveCfg = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|ARM.Build.0 = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|ARM.Deploy.0 = Debug|ARM

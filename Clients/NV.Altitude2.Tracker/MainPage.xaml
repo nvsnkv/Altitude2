@@ -7,7 +7,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
-            <controlPanel:ControlPanelView />
+            <controlPanel:ControlPanelView DataContext="{Binding ControlPanel}"/>
         </Pivot>
 
     </Grid>

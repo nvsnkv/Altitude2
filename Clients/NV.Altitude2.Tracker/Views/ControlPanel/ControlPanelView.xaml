@@ -13,6 +13,6 @@
         </Grid.RowDefinitions>
         
         
-        <controlPanel:PipelineControlView Grid.Row="2"/>
+        <controlPanel:PipelineControlView Grid.Row="2" DataContext="{Binding This}"/>
     </Grid>
 </PivotItem>

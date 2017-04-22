@@ -17,14 +17,15 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             _stoppedState = _state = default(TS);
         }
 
-        internal TS State
+        protected internal TS State
         {
             get => _state;
-            set {
+            protected set {
                 if (_state.Equals(value)) { return; }
 
                 _state = value;
 
+                RaiseStateChanged(_state);
             }
         }
 

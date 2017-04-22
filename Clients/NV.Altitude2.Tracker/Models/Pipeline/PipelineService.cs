@@ -39,6 +39,8 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         protected async Task SendNext(PipelineData data)
         {
+            if (Token.IsCancellationRequested) return;
+
             var receive = _successor?.Receive(data);
             if (receive != null) { await receive; }
         }

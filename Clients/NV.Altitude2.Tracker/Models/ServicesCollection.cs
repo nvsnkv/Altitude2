@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NV.Altitude2.Tracker.Models.Location;
 using NV.Altitude2.Tracker.Models.Pipeline;
+using NV.Altitude2.Tracker.Models.Settings;
 
 namespace NV.Altitude2.Tracker.Models
 {
@@ -9,11 +10,14 @@ namespace NV.Altitude2.Tracker.Models
         internal ServicesCollection()
         {
             LocationService = new LocationService();
+            ApplicationSettings = new ApplicationSettings();
         }
 
         internal LocationService LocationService { get; }
 
-        internal IEnumerable<PipelineService> Get()
+        internal ApplicationSettings ApplicationSettings { get; }
+
+        internal IEnumerable<PipelineService> GetPipline()
         {
             yield return LocationService;
         }

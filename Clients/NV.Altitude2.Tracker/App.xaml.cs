@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel;
+﻿using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.ExtendedExecution;
 using Windows.UI.Xaml;
@@ -19,12 +20,21 @@ namespace NV.Altitude2.Tracker
             Suspending += OnSuspending;
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             var page = Window.Current.Content as MainPage;
-            if (_pipeline == null)
+            if (_session == null)
             {
-                _pipeline = new Pipeline(_services.Get());
+                _services.ApplicationSettings.Load();
+                _session = new ExtendedExecutionSession()
+                {
+                    Reason = ExtendedExecutionReason.LocationTracking,
+                    Description = "Main app activity"
+                };
+
+                _pipeline = new Pipeline(_services.GetPipline());
+
+                _session.Revoked += HandleSessionRevoked;
             }
             if (page == null)
             {
@@ -44,13 +54,31 @@ namespace NV.Altitude2.Tracker
             {
                 Window.Current.Activate();
             }
+
+            var result = await _session.RequestExtensionAsync();
+            switch (result)
+            {
+                case ExtendedExecutionResult.Allowed:
+                    break;
+                case ExtendedExecutionResult.Denied:
+                    _session.Revoked -= HandleSessionRevoked;
+                    _pipeline.Dispose();
+                    _pipeline = null;
+                    _session = null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void HandleSessionRevoked(object o, ExtendedExecutionRevokedEventArgs a)
+        {
+            _pipeline?.Dispose();
         }
 
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
+            _services.ApplicationSettings.Save();
         }
     }
 }

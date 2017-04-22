@@ -30,6 +30,8 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         internal async Task Start()
         {
+            if (Token.IsCancellationRequested) return;
+
             if (!_initialized)
             {
                 await Initialize();
@@ -40,6 +42,8 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         internal async Task Stop()
         {
+            if (Token.IsCancellationRequested) return;
+
             if (State.Equals(_stoppedState)) { return; }
             try
             {

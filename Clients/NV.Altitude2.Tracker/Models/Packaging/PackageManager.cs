@@ -31,13 +31,16 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
             _folder = await GetSubfolder(await GetSubfolder(extenralFolder, ExternalFolderName), PackagesFolderName) ??
                       await GetSubfolder(ApplicationData.Current.LocalCacheFolder, PackagesFolderName, true);
-            
+            token.ThrowIfCancellationRequested();
+
             var files = await _folder.GetFilesAsync();
+            token.ThrowIfCancellationRequested();
+
             _packagesCount = files?.Count ?? 0;
             RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        public async Task CreatePackage(List<Measurement> data)
+        public async Task CreatePackage(List<Measurement> data, CancellationToken token)
         {
             if (_folder == null)
             {
@@ -45,6 +48,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             }
 
             var filename = $"p_{Guid.NewGuid()}";
+            token.ThrowIfCancellationRequested();
 
             var file = await _folder.CreateFileAsync(filename, CreationCollisionOption.FailIfExists);
 
@@ -57,6 +61,8 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             }
 
             _packagesCount++;
+            token.ThrowIfCancellationRequested();
+
             RaiseCollectionChanged(
                 new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { filename }));
 

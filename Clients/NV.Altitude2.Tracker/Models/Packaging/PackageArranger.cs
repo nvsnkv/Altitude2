@@ -56,7 +56,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
         protected override async Task Handle(List<Measurement> data)
         {
-            await _manager.CreatePackage(data);
+            await _manager.CreatePackage(data, Token);
         }
     }
 }

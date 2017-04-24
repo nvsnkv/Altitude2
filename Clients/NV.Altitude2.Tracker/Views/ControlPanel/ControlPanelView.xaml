@@ -14,8 +14,7 @@
 
         <StackPanel>
             <controlPanel:PackageBufferView  DataContext="{Binding PackageBuffer}"/>
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}">Packages folder</TextBlock>
-            <TextBlock Style="{StaticResource RightPositionedTextBlockStyle}" Text="{Binding PackagesFolder}"/>
+            <controlPanel:PackageManagerView DataContext="{Binding PackageManager}"></controlPanel:PackageManagerView>
         </StackPanel>
         
         <controlPanel:PipelineControlView Grid.Row="2" DataContext="{Binding This}"/>

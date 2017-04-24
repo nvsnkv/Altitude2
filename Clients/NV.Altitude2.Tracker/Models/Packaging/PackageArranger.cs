@@ -28,7 +28,10 @@ namespace NV.Altitude2.Tracker.Models.Packaging
                         try
                         {
                             var pacakgeName = await _manager.GetNextPackage(Token);
-                            await SendNext(pacakgeName);
+                            if (pacakgeName != null)
+                            {
+                                await SendNext(pacakgeName);
+                            }
                         }
                         catch (Exception e)
                         {

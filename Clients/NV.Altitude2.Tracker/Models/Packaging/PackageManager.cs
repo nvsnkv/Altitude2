@@ -12,7 +12,7 @@ using NV.Altitude2.Domain;
 
 namespace NV.Altitude2.Tracker.Models.Packaging
 {
-    internal class PackageManager : INotifyCollectionChanged
+    internal sealed class PackageManager : INotifyCollectionChanged
     {
         private static readonly string ExternalFolderName = "Altitude2 Data";
         private static readonly string PackagesFolderName = "Packages";
@@ -47,17 +47,16 @@ namespace NV.Altitude2.Tracker.Models.Packaging
                 throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
             }
 
-            var filename = $"p_{Guid.NewGuid()}";
+            var filename = $"p_{Guid.NewGuid()}.a2p";
             token.ThrowIfCancellationRequested();
 
             var file = await _folder.CreateFileAsync(filename, CreationCollisionOption.FailIfExists);
 
-            using (var stream = new DeflateStream(await file.OpenStreamForWriteAsync(),
-                CompressionMode.Compress))
+            using (var stream = new DeflateStream(await file.OpenStreamForWriteAsync(), CompressionMode.Compress))
             using (var writer = new JsonTextWriter(new StreamWriter(stream)))
             {
                 _serializer.Serialize(writer, data);
-                await writer.FlushAsync();
+                await writer.FlushAsync(token);
             }
 
             _packagesCount++;
@@ -68,14 +67,23 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
         }
 
-        public Task<string> GetNextPackage(CancellationToken token)
+        public async Task<string> GetNextPackage(CancellationToken token)
         {
-            throw new NotImplementedException();
+            if (_folder == null)
+            {
+                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
+            }
+            token.ThrowIfCancellationRequested();
+
+            var files = await _folder.GetFilesAsync();
+            token.ThrowIfCancellationRequested();
+
+            return files.Select(f => f.Name).FirstOrDefault();
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        protected virtual void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
+        private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             CollectionChanged?.Invoke(this, e);
         }
@@ -89,7 +97,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             return subfolders.FirstOrDefault(f => f.Name.Equals(name)) ?? await CreateFolder(folder, name, throwIfFailed);
         }
 
-        private async Task<StorageFolder> CreateFolder(StorageFolder folder, string name, bool throwIfFailed)
+        private static async Task<StorageFolder> CreateFolder(StorageFolder folder, string name, bool throwIfFailed)
         {
             try
             {

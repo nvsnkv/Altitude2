@@ -1,0 +1,11 @@
+﻿<StackPanel
+    x:Class="NV.Altitude2.Tracker.Views.ControlPanel.PackageManagerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}">Packages folder</TextBlock>
+        <TextBlock Style="{StaticResource RightPositionedTextBlockStyle}" Text="{Binding PackagesFolder}"/>
+        <Button HorizontalAlignment="Stretch" Margin="5">Clear folder</Button>
+    </StackPanel>
+</StackPanel>

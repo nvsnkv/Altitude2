@@ -26,15 +26,10 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
             PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
 
-            _collection.PackageManager.CollectionChanged += async (o, e) => await Dispatch(() => PackagesFolder = GetPackagesFolder());
+            PackageManager = new PackageManagerViewModel(collection.PackageManager, dispatcher);
             This = this;
 
             ApplySettings();
-        }
-
-        private string GetPackagesFolder()
-        {
-            return _collection.PackageManager.FolderPath ?? "Package manager is not initialized";
         }
 
         public PackageBufferViewModel PackageBuffer { get; }
@@ -45,17 +40,9 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
         public IServiceTogglerViewModel PackageArranger { get; }
 
-        public string PackagesFolder
-        {
-            get => _packagesFolder;
-            private set
-            {
-                if (value == _packagesFolder) return;
-                _packagesFolder = value;
-                RaisePropertyChanged();
-            }
-        }
+        public PackageManagerViewModel PackageManager { get; }
 
+        
         private void ApplySettings()
         {
             if (_settings.Services.LocationEnabled)

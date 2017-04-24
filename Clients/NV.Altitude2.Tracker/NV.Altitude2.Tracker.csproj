@@ -123,6 +123,7 @@
     <Compile Include="ViewModels\ControlPanel\ControlPanelViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\IServiceTogglerViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\PackageBufferViewModel.cs" />
+    <Compile Include="ViewModels\ControlPanel\PackageManagerViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\ServiceTogglerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RightNow\PositionViewModel.cs" />
@@ -133,6 +134,9 @@
     </Compile>
     <Compile Include="Views\ControlPanel\PackageBufferView.xaml.cs">
       <DependentUpon>PackageBufferView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlPanel\PackageManagerView.xaml.cs">
+      <DependentUpon>PackageManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlPanel\PipelineControlView.xaml.cs">
       <DependentUpon>PipelineControlView.xaml</DependentUpon>
@@ -184,6 +188,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ControlPanel\PackageBufferView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ControlPanel\PackageManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

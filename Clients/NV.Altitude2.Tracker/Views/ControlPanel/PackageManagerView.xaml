@@ -6,6 +6,7 @@
     <StackPanel>
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Packages folder</TextBlock>
         <TextBlock Style="{StaticResource RightPositionedTextBlockStyle}" Text="{Binding PackagesFolder}"/>
-        <Button HorizontalAlignment="Stretch" Margin="5">Clear folder</Button>
+        <Button HorizontalAlignment="Stretch" Margin="5" Command="{Binding ClearFolder}"
+                IsEnabled="{Binding PackageArranger.IsEnabled, Converter={StaticResource InverseBooleanConverter}}">Clear folder</Button>
     </StackPanel>
 </StackPanel>

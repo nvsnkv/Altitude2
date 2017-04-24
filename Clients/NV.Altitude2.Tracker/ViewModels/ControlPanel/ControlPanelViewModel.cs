@@ -26,7 +26,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
             PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
 
-            PackageManager = new PackageManagerViewModel(collection.PackageManager, dispatcher);
+            PackageManager = new PackageManagerViewModel(collection.PackageManager, PackageArranger, dispatcher);
             This = this;
 
             ApplySettings();

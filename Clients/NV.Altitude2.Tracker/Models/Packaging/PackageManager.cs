@@ -24,6 +24,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
         public int PackagesCount => _packagesCount;
 
         public string FolderPath => _folder?.Path;
+        public bool IsInitialized => _folder != null;
 
         public async Task Initialize(CancellationToken token)
         {
@@ -38,6 +39,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
             _packagesCount = files?.Count ?? 0;
             RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            RaiseInitilalized();
         }
 
         public async Task CreatePackage(List<Measurement> data, CancellationToken token)
@@ -109,6 +111,27 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             }
 
             return null;
+        }
+
+        public event EventHandler Initilalized;
+
+        private void RaiseInitilalized()
+        {
+            Initilalized?.Invoke(this, EventArgs.Empty);
+        }
+
+        public async Task Clear()
+        {
+            if (_folder == null)
+            {
+                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
+            }
+
+            var files = await _folder.GetFilesAsync();
+            foreach (var file in files)
+            {
+                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            }
         }
     }
 }

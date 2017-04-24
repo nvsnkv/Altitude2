@@ -43,7 +43,8 @@
 
             <converters:StringFormatConverter x:Key="DegreesConverter" Format="{}{0:F6}°" />
             <converters:StringFormatConverter x:Key="MetersConverter" Format="{}{0:F2} m" />
-            <converters:StringFormatConverter x:Key="TimestampConverter" Format="{}{0:dd.MM.yyyy HH:mm:ss:fff}"></converters:StringFormatConverter>
+            <converters:StringFormatConverter x:Key="TimestampConverter" Format="{}{0:dd.MM.yyyy HH:mm:ss:fff}"/>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 

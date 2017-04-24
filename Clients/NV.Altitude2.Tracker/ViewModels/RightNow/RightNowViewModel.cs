@@ -9,6 +9,7 @@ namespace NV.Altitude2.Tracker.ViewModels.RightNow
     {
         private string _trackerState;
         private int _measurementsCount;
+        private int _packagesCount;
 
         public RightNowViewModel(ServicesCollection collection, CoreDispatcher dispatcher) : base(dispatcher)
         {
@@ -39,6 +40,11 @@ namespace NV.Altitude2.Tracker.ViewModels.RightNow
             {
                 MeasurementsCount = collection.PackageBuilder.MeasurementsCount;
             });
+
+            collection.PackageManager.CollectionChanged += async (o, e) => await Dispatch(() =>
+            {
+                PackagesCount = collection.PackageManager.PackagesCount;
+            });
         }
 
         public PositionViewModel Position { get; }
@@ -61,6 +67,17 @@ namespace NV.Altitude2.Tracker.ViewModels.RightNow
             {
                 if (value == _measurementsCount) return;
                 _measurementsCount = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int PackagesCount
+        {
+            get => _packagesCount;
+            private set
+            {
+                if (value == _packagesCount) return;
+                _packagesCount = value;
                 RaisePropertyChanged();
             }
         }

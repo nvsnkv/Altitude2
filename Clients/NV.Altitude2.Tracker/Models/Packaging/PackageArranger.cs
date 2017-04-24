@@ -50,7 +50,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
         protected override Task DoStop()
         {
-            State = GenericState.Enabled;
+            State = GenericState.Disabled;
             return Task.CompletedTask;
         }
 

@@ -37,8 +37,14 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             {
                 await Initialize();
             }
-            
-            await DoStart();
+            try
+            {
+                await DoStart();
+            }
+            catch (Exception e)
+            {
+                RaiseErrorOccured(e);
+            }
         }
 
         internal async Task Stop()

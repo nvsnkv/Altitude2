@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.ExtendedExecution;
@@ -32,7 +33,7 @@ namespace NV.Altitude2.Tracker
                     Description = "Main app activity"
                 };
 
-                _pipeline = new Pipeline(_services.GetPipline());
+                _pipeline = new Pipeline(_services.GetPipline(), PipelineErrorOccured);
 
                 _session.Revoked += HandleSessionRevoked;
             }
@@ -69,6 +70,11 @@ namespace NV.Altitude2.Tracker
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private static void PipelineErrorOccured(object sender, ServiceErrorEventArgs e)
+        {
+            Debug.WriteLine($"Error: {e.Error.Message}{Environment.NewLine}{e.Error}");
         }
 
         private void HandleSessionRevoked(object o, ExtendedExecutionRevokedEventArgs a)

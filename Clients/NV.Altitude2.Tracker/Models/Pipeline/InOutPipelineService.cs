@@ -8,7 +8,7 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
         protected override async Task HandleData(PipelineData data) 
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
-            if (data.Type is TIn)
+            if (data.Type == typeof(TIn))
             {
                 await Handle((TIn)data.Data);
             }

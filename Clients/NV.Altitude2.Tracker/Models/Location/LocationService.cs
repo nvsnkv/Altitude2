@@ -23,6 +23,11 @@ namespace NV.Altitude2.Tracker.Models.Location
 
         protected override Task<bool> DoInitialize()
         {
+            return Task.FromResult(true);
+        }
+
+        protected override async Task DoStart()
+        {
             _locator = new Geolocator
             {
                 ReportInterval = 1000,
@@ -30,15 +35,10 @@ namespace NV.Altitude2.Tracker.Models.Location
             };
 
             _locator.StatusChanged += HandleStatusChanged;
-            return Task.FromResult(true);
-        }
-
-        protected override async Task DoStart()
-        {
             _locator.PositionChanged += HandlePositionChanged;
             await _locator.GetGeopositionAsync();
         }
-
+        
         protected override Task DoStop()
         {
             _locator.PositionChanged -= HandlePositionChanged;

@@ -6,11 +6,18 @@ namespace NV.Altitude2.Tracker.Models.Settings
 {
     internal class ApplicationSettings
     {
-        internal static AppSettings Default { get; } = new AppSettings()
+        private static AppSettings Default { get; } = new AppSettings()
         {
             Services = new AppSettings.ServiceStates()
             {
-                LocationEnabled = false
+                LocationEnabled = false,
+            },
+            PackageBuffer = new PackageBufferSettings()
+            {
+                HorizontalAccuracy = 3m,
+                VerticalAccuracy = 3m,
+
+                PackageSize = 100
             }
         };
 
@@ -23,7 +30,12 @@ namespace NV.Altitude2.Tracker.Models.Settings
             {
                 try
                 {
-                    Current = JsonConvert.DeserializeObject<AppSettings>(serialized);
+                    var result = JsonConvert.DeserializeObject<AppSettings>(serialized);
+                    if (result.Services != null
+                        && result.PackageBuffer != null)
+                    {
+                        Current = result;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -36,16 +48,6 @@ namespace NV.Altitude2.Tracker.Models.Settings
         {
             var serialized = JsonConvert.SerializeObject(Current);
             ApplicationData.Current.LocalSettings.Values["settings"] = serialized;
-        }
-    }
-
-    internal class AppSettings
-    {
-        public ServiceStates Services { get; set; }
-
-        internal class ServiceStates
-        {
-            public bool LocationEnabled { get; set; }
         }
     }
 }

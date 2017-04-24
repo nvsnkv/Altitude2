@@ -113,10 +113,14 @@
     <Compile Include="Models\Pipeline\StatefulPipelineService.cs" />
     <Compile Include="Models\ServicesCollection.cs" />
     <Compile Include="Models\Settings\ApplicationSettings.cs" />
+    <Compile Include="Models\Settings\AppSettings.cs" />
+    <Compile Include="Models\Settings\PackageBufferSettings.cs" />
+    <Compile Include="Models\Settings\ServiceStates.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ControlPanel\ControlPanelViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\IServiceTogglerViewModel.cs" />
+    <Compile Include="ViewModels\ControlPanel\PackageBufferViewModel.cs" />
     <Compile Include="ViewModels\ControlPanel\ServiceTogglerViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RightNow\PositionViewModel.cs" />
@@ -124,6 +128,9 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ControlPanel\ControlPanelView.xaml.cs">
       <DependentUpon>ControlPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ControlPanel\PackageBufferView.xaml.cs">
+      <DependentUpon>PackageBufferView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ControlPanel\PipelineControlView.xaml.cs">
       <DependentUpon>PipelineControlView.xaml</DependentUpon>
@@ -173,6 +180,10 @@
     <Page Include="Views\ControlPanel\ControlPanelView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ControlPanel\PackageBufferView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ControlPanel\PipelineControlView.xaml">
       <Generator>MSBuild:Compile</Generator>

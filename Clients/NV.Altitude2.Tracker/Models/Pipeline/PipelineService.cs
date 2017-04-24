@@ -19,23 +19,19 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         internal async Task Receive(PipelineData data)
         {
-            var result = data;
+            if (Token.IsCancellationRequested) return;
+
             try
             {
-                result = await HandleData(data) ?? result;
+                await HandleData(data);
             }      
             catch (Exception e)
             {
                 RaiseErrorOccured(e);
             }
-
-            if (result != null)
-            {
-                await SendNext(result);
-            }
         }
 
-        protected abstract Task<PipelineData> HandleData(PipelineData data);
+        protected abstract Task HandleData(PipelineData data);
 
         protected async Task SendNext(PipelineData data)
         {
@@ -44,6 +40,7 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             var receive = _successor?.Receive(data);
             if (receive != null) { await receive; }
         }
+
         internal void SetCancellationToken(CancellationToken token)
         {
             Token = token;

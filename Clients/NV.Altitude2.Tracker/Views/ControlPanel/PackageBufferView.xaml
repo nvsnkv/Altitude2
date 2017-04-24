@@ -1,0 +1,41 @@
+﻿<StackPanel
+    x:Class="NV.Altitude2.Tracker.Views.ControlPanel.PackageBufferView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <TextBlock Style="{StaticResource TitleTextBlockStyle}">Desired Accuracy</TextBlock>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource BeforeSliderTextBLockStyle}">Horizontal:</TextBlock>
+        <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="30" StepFrequency="0.1" Value="{Binding Horizontal, Mode=TwoWay}" 
+                Style="{StaticResource HorizontalSliderStyle}"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Horizontal, Converter={StaticResource MetersConverter}}"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource BeforeSliderTextBLockStyle}">Vertical:</TextBlock>
+        <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="30" StepFrequency="0.1" Value="{Binding Vertical, Mode=TwoWay}" 
+                Style="{StaticResource HorizontalSliderStyle}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Vertical, Converter={StaticResource MetersConverter}}"/>
+    </Grid>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Style="{StaticResource BeforeSliderTextBLockStyle}">Package size:</TextBlock>
+        <Slider Grid.Column="1" Minimum="10" Maximum="1000" StepFrequency="1" Value="{Binding PackageSize, Mode=TwoWay}" 
+                Style="{StaticResource HorizontalSliderStyle}" TickFrequency="100"/>
+        <TextBlock Grid.Column="2" Text="{Binding PackageSize}"/>
+    </Grid>
+</StackPanel>

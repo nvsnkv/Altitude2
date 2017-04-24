@@ -20,6 +20,26 @@
                     <Setter Property="HorizontalAlignment" Value="Right"/>
                 </Style.Setters>
             </Style>
+            
+            <Style x:Key="BeforeSliderTextBLockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                <Style.Setters>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style.Setters>
+            </Style>
+
+            <Style x:Key="AfterSliderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BeforeSliderTextBLockStyle}">
+                <Style.Setters>
+                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                </Style.Setters>
+            </Style>
+            
+            <Style x:Key="HorizontalSliderStyle" TargetType="Slider">
+                <Style.Setters>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="5 0"/>
+                </Style.Setters>
+            </Style>
 
             <converters:StringFormatConverter x:Key="DegreesConverter" Format="{}{0:F6}°" />
             <converters:StringFormatConverter x:Key="MetersConverter" Format="{}{0:F2} m" />

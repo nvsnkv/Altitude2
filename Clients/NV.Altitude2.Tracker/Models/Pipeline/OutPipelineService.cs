@@ -8,11 +8,10 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
         protected async Task SendNext(TOut data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
-            if (Token.IsCancellationRequested) return;
             await SendNext(new PipelineData(typeof(TOut), data));
         }
 
-        protected override Task<PipelineData> HandleData(PipelineData data)
+        protected override Task HandleData(PipelineData data)
         {
             throw new NotImplementedException();
         }

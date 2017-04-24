@@ -3,19 +3,17 @@ using System.Threading.Tasks;
 
 namespace NV.Altitude2.Tracker.Models.Pipeline
 {
-    internal abstract class InOutPipelineService<TIn, TOut, TS> : StatefulPipelineService<TS> where TS : struct
+    internal abstract class InOutPipelineService<TIn, TOut, TS> : OutPipelineService<TOut, TS> where TS : struct
     {
-        protected override async Task<PipelineData> HandleData(PipelineData data) 
+        protected override async Task HandleData(PipelineData data) 
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
-            if (Token.IsCancellationRequested) return null;
-            if (!(data.Type is TIn)) { return null; }
-
-            var result = await Handle((TIn)data.Data);
-
-            return result == null ? null : new PipelineData(typeof(TOut), result);
+            if (data.Type is TIn)
+            {
+                await Handle((TIn)data.Data);
+            }
         }
 
-        protected abstract Task<TOut> Handle(TIn data);
+        protected abstract Task Handle(TIn data);
     }
 }

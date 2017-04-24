@@ -10,13 +10,26 @@ namespace NV.Altitude2.Tracker.Models.Packaging
     {
         private readonly IList<Measurement> _measurements = new List<Measurement>();
         private readonly object _listLock = new object();
-        private volatile bool _enabled;
         private volatile Accuracy _desiredAccuracy;
+        private volatile int _packageSize;
+
+        public PackageBuilder()
+        {
+            DesiredAccuracy = new Accuracy(3,3);
+            PackageSize = 100;
+            State = GenericState.Enabled;
+        }
 
         public Accuracy DesiredAccuracy
         {
             get => _desiredAccuracy;
             set => _desiredAccuracy = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public int PackageSize
+        {
+            get => _packageSize;
+            set => _packageSize = value > 0 ? value : throw new ArgumentException("PackageSize should be positive!", nameof(value));
         }
 
         protected override Task<bool> DoInitialize()
@@ -26,23 +39,36 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
         protected override Task DoStart()
         {
-            _enabled = true;
-            State = GenericState.Enabled;
-
             return Task.CompletedTask;
         }
 
         protected override Task DoStop()
         {
-            _enabled = true;
-            State = GenericState.Enabled;
-
             return Task.CompletedTask;
         }
 
-        protected override Task<List<Measurement>> Handle(Measurement data)
+        protected override async Task Handle(Measurement data)
         {
-            if (DesiredAccuracy.IsLessThan(data.Accuracy)) { return Task.FromResult<List<Measurement>>(null); }
+            if (DesiredAccuracy.IsLessThan(data.Accuracy))
+            {
+                return;
+            }
+
+            List<Measurement> package = null;
+            lock (_listLock)
+            {
+                _measurements.Add(data);
+                if (_measurements.Count >= _packageSize)
+                {
+                    package = new List<Measurement>(_measurements);
+                    _measurements.Clear();
+                }
+            }
+
+            if (package != null)
+            {
+                await SendNext(package);
+            }
         }
     }
 }

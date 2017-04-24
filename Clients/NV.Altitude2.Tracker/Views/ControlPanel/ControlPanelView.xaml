@@ -11,7 +11,10 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
+        <StackPanel>
+            <controlPanel:PackageBufferView  DataContext="{Binding PackageBuffer}"/>
+        </StackPanel>
         
         <controlPanel:PipelineControlView Grid.Row="2" DataContext="{Binding This}"/>
     </Grid>

@@ -16,11 +16,13 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             _settings = collection.ApplicationSettings.Current;
             LocationService = new ServiceTogglerViewModel<LocationServiceState>(collection.LocationService, dispatcher);
             LocationService.PropertyChanged += (o, e) => _settings.Services.LocationEnabled = LocationService.IsEnabled;
-
+            PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
             This = this;
 
             ApplySettings();
         }
+
+        public PackageBufferViewModel PackageBuffer { get; }
 
         public ControlPanelViewModel This { get; }
 

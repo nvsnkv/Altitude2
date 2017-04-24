@@ -51,28 +51,36 @@ namespace NV.Altitude2.Tracker.Models.Location
 
         internal event EventHandler<LocationChangedEventArgs> LocationChanged;
 
-        private void HandlePositionChanged(Geolocator sender, PositionChangedEventArgs args)
+        private async void HandlePositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
-            var geoPoint = args.Position?.Coordinate?.Point;
-            if (geoPoint == null)
+            try
             {
-                return;
+                var geoPoint = args.Position?.Coordinate?.Point;
+                if (geoPoint == null)
+                {
+                    return;
+                }
+
+                var pos = geoPoint.Position;
+
+                var point = new Point((decimal) pos.Latitude, (decimal) pos.Longitude, (decimal) pos.Altitude);
+
+                var horizontalAccuracy = (decimal) args.Position.Coordinate.Accuracy;
+                var verticalAccuracy = args.Position.Coordinate.AltitudeAccuracy.HasValue
+                    ? (decimal) args.Position.Coordinate.AltitudeAccuracy.Value
+                    : decimal.MaxValue;
+
+                var accuracy = new Accuracy(horizontalAccuracy, verticalAccuracy);
+
+
+                var measurement = new Measurement(point, accuracy, args.Position.Coordinate.Timestamp.LocalDateTime);
+                RaiseLocationChanged(measurement);
+                await SendNext(measurement);
             }
-
-            var pos = geoPoint.Position;
-
-            var point = new Point((decimal)pos.Latitude, (decimal)pos.Longitude, (decimal)pos.Altitude);
-
-            var horizontalAccuracy = (decimal)args.Position.Coordinate.Accuracy;
-            var verticalAccuracy = args.Position.Coordinate.AltitudeAccuracy.HasValue
-                ? (decimal)args.Position.Coordinate.AltitudeAccuracy.Value
-                : decimal.MaxValue;
-
-            var accuracy = new Accuracy(horizontalAccuracy, verticalAccuracy);
-
-
-            var measurement = new Measurement(point, accuracy, args.Position.Coordinate.Timestamp.LocalDateTime);
-            RaiseLocationChanged(measurement);
+            catch (Exception e)
+            {
+                RaiseErrorOccured(e);
+            }
         }
 
         private void HandleStatusChanged(Geolocator sender, StatusChangedEventArgs args)

@@ -33,12 +33,12 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
         {
             if (Token.IsCancellationRequested) return;
 
-            if (!_initialized)
-            {
-                await Initialize();
-            }
             try
             {
+                if (!_initialized)
+                {
+                    await Initialize();
+                }
                 await DoStart();
             }
             catch (Exception e)
@@ -66,15 +66,7 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
         {
             if (_initialized) { return; }
             if (Token == CancellationToken.None) { return; }
-            try
-            {
-                _initialized = await DoInitialize();
-            }
-            catch(Exception e)
-            {
-                RaiseErrorOccured(e);
-                _initialized = false;
-            }        
+            _initialized = await DoInitialize();
         }
 
         protected sealed override async Task HandleData(PipelineData data)

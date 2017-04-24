@@ -11,7 +11,7 @@
         Location
     </ToggleButton>
 
-    <ToggleButton Grid.Column="1" Style="{StaticResource ControlPanelButtonStyle}">
+    <ToggleButton Grid.Column="1" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding PackageArranger.IsEnabled, Mode=TwoWay}">
         Packaging
     </ToggleButton>
 

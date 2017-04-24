@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Core;
 using NV.Altitude2.Tracker.Models;
 using NV.Altitude2.Tracker.Models.Location;
+using NV.Altitude2.Tracker.Models.Pipeline;
 using NV.Altitude2.Tracker.Models.Settings;
 
 namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
@@ -14,8 +15,13 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
         {
             _collection = collection;
             _settings = collection.ApplicationSettings.Current;
+
             LocationService = new ServiceTogglerViewModel<LocationServiceState>(collection.LocationService, dispatcher);
             LocationService.PropertyChanged += (o, e) => _settings.Services.LocationEnabled = LocationService.IsEnabled;
+
+            PackageArranger = new ServiceTogglerViewModel<GenericState>(collection.PackageArranger, dispatcher);
+            PackageArranger.PropertyChanged += (o, e) => _settings.Services.PackagingEnabled = PackageArranger.IsEnabled;
+
             PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
             This = this;
 
@@ -28,11 +34,18 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
         public IServiceTogglerViewModel LocationService { get; }
 
+        public IServiceTogglerViewModel PackageArranger { get; }
+
         private void ApplySettings()
         {
             if (_settings.Services.LocationEnabled)
             {
                 var _ = _collection.LocationService.Start();
+            }
+
+            if (_settings.Services.PackagingEnabled)
+            {
+                var _ = _collection.PackageArranger.Start();
             }
         }
     }

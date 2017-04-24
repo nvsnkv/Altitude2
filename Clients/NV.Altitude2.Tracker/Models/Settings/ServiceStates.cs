@@ -5,6 +5,7 @@
         internal class ServiceStates
         {
             public bool LocationEnabled { get; set; }
+            public bool PackagingEnabled { get; set; }
         }
     }
 }

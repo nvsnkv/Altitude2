@@ -11,7 +11,7 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             await SendNext(new PipelineData(typeof(TOut), data));
         }
 
-        protected override Task HandleData(PipelineData data)
+        protected override Task DoHandleData(PipelineData data)
         {
             throw new NotImplementedException();
         }

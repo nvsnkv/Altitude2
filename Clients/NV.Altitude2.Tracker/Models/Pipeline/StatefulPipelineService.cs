@@ -77,11 +77,25 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             }        
         }
 
+        protected sealed override async Task HandleData(PipelineData data)
+        {
+            if (State.Equals(default(TS))) return;
+            await DoHandleData(data);
+        }
+
+        protected override async Task SendNext(PipelineData data)
+        {
+            if (State.Equals(default(TS))) return;
+            await base.SendNext(data);
+        }
+
         protected abstract Task<bool> DoInitialize();
 
         protected abstract Task DoStart();
 
         protected abstract Task DoStop();
+
+        protected abstract Task DoHandleData(PipelineData data);
 
         internal event EventHandler<ServiceStateChangedEventArgs<TS>> StateChanged;
 

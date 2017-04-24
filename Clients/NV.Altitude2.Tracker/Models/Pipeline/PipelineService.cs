@@ -33,7 +33,7 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         protected abstract Task HandleData(PipelineData data);
 
-        protected async Task SendNext(PipelineData data)
+        protected virtual async Task SendNext(PipelineData data)
         {
             if (Token.IsCancellationRequested) return;
 

@@ -14,5 +14,29 @@
         </Grid.RowDefinitions>
 
         <rightNow:PositionView DataContext="{Binding Position}"/>
+
+        <Grid Grid.Row="1" Margin="0 20 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}">Tracker state:</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource RightPositionedTextBlockStyle}"
+                       Text="{Binding TrackerState}"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource BaseTextBlockStyle}">Package buffer:</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource RightPositionedTextBlockStyle}">
+                <Run>buffered</Run>
+                <Run Text="{Binding MeasurementsCount}"/>
+                <Run>measurements</Run>
+            </TextBlock>
+                       
+        </Grid>
     </Grid>
 </PivotItem>
+

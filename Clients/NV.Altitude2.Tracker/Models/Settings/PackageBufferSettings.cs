@@ -6,4 +6,9 @@ namespace NV.Altitude2.Tracker.Models.Settings
         public decimal VerticalAccuracy { get; set; }
         public int PackageSize { get; set; }
     }
+
+    internal class PackageManagerSettigns
+    {
+        public string FolderPath { get; set; }
+    }
 }

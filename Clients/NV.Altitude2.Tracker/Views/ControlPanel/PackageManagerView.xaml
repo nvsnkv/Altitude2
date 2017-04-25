@@ -6,7 +6,18 @@
     <StackPanel>
         <TextBlock Style="{StaticResource TitleTextBlockStyle}">Packages folder</TextBlock>
         <TextBlock Style="{StaticResource RightPositionedTextBlockStyle}" Text="{Binding PackagesFolder}"/>
-        <Button HorizontalAlignment="Stretch" Margin="5" Command="{Binding ClearFolder}"
-                IsEnabled="{Binding PackageArranger.IsEnabled, Converter={StaticResource InverseBooleanConverter}}">Clear folder</Button>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Command="{Binding SelectFolder}"
+                    IsEnabled="{Binding PackageArranger.IsEnabled, Converter={StaticResource InverseBooleanConverter}}">Select folder</Button>
+            
+            <Button Grid.Column="1" HorizontalAlignment="Stretch" Margin="5" Command="{Binding ClearFolder}"
+                    IsEnabled="{Binding PackageArranger.IsEnabled, Converter={StaticResource InverseBooleanConverter}}">Clear folder</Button>
+        </Grid>
+        
     </StackPanel>
 </StackPanel>

@@ -18,6 +18,10 @@ namespace NV.Altitude2.Tracker.Models.Settings
                 VerticalAccuracy = 3m,
 
                 PackageSize = 100
+            },
+            PackageManager = new PackageManagerSettigns()
+            {
+                FolderPath = null
             }
         };
 
@@ -32,7 +36,8 @@ namespace NV.Altitude2.Tracker.Models.Settings
                 {
                     var result = JsonConvert.DeserializeObject<AppSettings>(serialized);
                     if (result.Services != null
-                        && result.PackageBuffer != null)
+                        && result.PackageBuffer != null
+                        && result.PackageManager != null)
                     {
                         Current = result;
                     }

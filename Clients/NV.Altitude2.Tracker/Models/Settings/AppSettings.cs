@@ -4,5 +4,6 @@
     {
         public ServiceStates Services { get; set; }
         public PackageBufferSettings PackageBuffer { get; set; }
+        public PackageManagerSettigns PackageManager { get; set; }
     }
 }

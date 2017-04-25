@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Newtonsoft.Json;
 using NV.Altitude2.Domain;
 
@@ -20,18 +21,17 @@ namespace NV.Altitude2.Tracker.Models.Packaging
         private readonly JsonSerializer _serializer = new JsonSerializer();
         private IStorageFolder _folder;
         private int _packagesCount;
+        private string _folderPath;
 
         public int PackagesCount => _packagesCount;
 
-        public string FolderPath => _folder?.Path;
+        public string FolderPath => _folderPath;
         public bool IsInitialized => _folder != null;
 
+        
         public async Task Initialize(CancellationToken token)
         {
-            var extenralFolder = (await KnownFolders.RemovableDevices.GetFoldersAsync()).FirstOrDefault();
-
-            _folder = await GetSubfolder(await GetSubfolder(extenralFolder, ExternalFolderName), PackagesFolderName) ??
-                      await GetSubfolder(ApplicationData.Current.LocalCacheFolder, PackagesFolderName, true);
+            _folder = await OpenFolderByPath() ?? await ApplicationData.Current.LocalCacheFolder.GetFolderAsync("Packages");
             token.ThrowIfCancellationRequested();
 
             var files = await _folder.GetFilesAsync();
@@ -40,6 +40,27 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             _packagesCount = files?.Count ?? 0;
             RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             RaiseInitilalized();
+        }
+
+        public void SetFolderPath(string path = null)
+        {
+            _folderPath = path;
+        }
+
+        public async Task ChooseExternalFolder()
+        {
+            var picker = new FolderPicker()
+            {
+                SuggestedStartLocation = PickerLocationId.ComputerFolder,
+                ViewMode = PickerViewMode.List
+            };
+
+            var folder = await picker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                SetFolderPath(folder.Path);
+                await Initialize(CancellationToken.None);
+            }
         }
 
         public async Task CreatePackage(List<Measurement> data, CancellationToken token)
@@ -83,43 +104,6 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             return files.Select(f => f.Name).FirstOrDefault();
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            CollectionChanged?.Invoke(this, e);
-        }
-
-        private async Task<StorageFolder> GetSubfolder(StorageFolder folder, string name, bool throwIfFailed = false)
-        {
-            if (folder == null && throwIfFailed) throw new ArgumentNullException(nameof(folder));
-            if (folder == null) return null;
-
-            var subfolders = await folder.GetFoldersAsync() ?? Enumerable.Empty<StorageFolder>();
-            return subfolders.FirstOrDefault(f => f.Name.Equals(name)) ?? await CreateFolder(folder, name, throwIfFailed);
-        }
-
-        private static async Task<StorageFolder> CreateFolder(StorageFolder folder, string name, bool throwIfFailed)
-        {
-            try
-            {
-                return await folder.CreateFolderAsync(name, CreationCollisionOption.FailIfExists);
-            }
-            catch (Exception)
-            {
-                if (throwIfFailed) throw;
-            }
-
-            return null;
-        }
-
-        public event EventHandler Initilalized;
-
-        private void RaiseInitilalized()
-        {
-            Initilalized?.Invoke(this, EventArgs.Empty);
-        }
-
         public async Task Clear()
         {
             if (_folder == null)
@@ -132,6 +116,38 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
+        }
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public event EventHandler Initilalized;
+
+        private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
+        {
+            CollectionChanged?.Invoke(this, e);
+        }
+
+        private void RaiseInitilalized()
+        {
+            Initilalized?.Invoke(this, EventArgs.Empty);
+        }
+
+        private async Task<StorageFolder> OpenFolderByPath()
+        {
+            if (string.IsNullOrEmpty(_folderPath))
+            {
+                return null;
+            }
+
+            try
+            {
+                return await StorageFolder.GetFolderFromPathAsync(_folderPath);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
     }
 }

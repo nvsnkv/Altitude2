@@ -11,8 +11,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
     {
         private readonly ServicesCollection _collection;
         private readonly AppSettings _settings;
-        private string _packagesFolder;
-
+        
         internal ControlPanelViewModel(ServicesCollection collection, CoreDispatcher dispatcher):base(dispatcher)
         {
             _collection = collection;
@@ -26,7 +25,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
             PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
 
-            PackageManager = new PackageManagerViewModel(collection.PackageManager, PackageArranger, dispatcher);
+            PackageManager = new PackageManagerViewModel(collection.PackageManager, collection.ApplicationSettings.Current.PackageManager, PackageArranger, dispatcher);
             This = this;
 
             ApplySettings();

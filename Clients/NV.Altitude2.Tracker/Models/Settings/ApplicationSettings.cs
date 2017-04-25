@@ -22,6 +22,10 @@ namespace NV.Altitude2.Tracker.Models.Settings
             PackageManager = new PackageManagerSettigns()
             {
                 FolderPath = null
+            },
+            TransferService = new TransferServiceSettings()
+            {
+                ApiUrl = null
             }
         };
 
@@ -37,7 +41,8 @@ namespace NV.Altitude2.Tracker.Models.Settings
                     var result = JsonConvert.DeserializeObject<AppSettings>(serialized);
                     if (result.Services != null
                         && result.PackageBuffer != null
-                        && result.PackageManager != null)
+                        && result.PackageManager != null
+                        && result.TransferService != null)
                     {
                         Current = result;
                     }

@@ -3,6 +3,7 @@ using NV.Altitude2.Tracker.Models.Location;
 using NV.Altitude2.Tracker.Models.Packaging;
 using NV.Altitude2.Tracker.Models.Pipeline;
 using NV.Altitude2.Tracker.Models.Settings;
+using NV.Altitude2.Tracker.Models.Transfer;
 
 namespace NV.Altitude2.Tracker.Models
 {
@@ -16,6 +17,8 @@ namespace NV.Altitude2.Tracker.Models
 
             PackageManager = new PackageManager();
             PackageArranger = new PackageArranger(PackageManager);
+            TransferService = new TransferService(PackageManager);
+            
         }
 
         internal LocationService LocationService { get; }
@@ -28,12 +31,14 @@ namespace NV.Altitude2.Tracker.Models
 
         internal PackageManager PackageManager { get; }
 
+        internal TransferService TransferService { get; }
 
         internal IEnumerable<PipelineService> GetPipline()
         {
             yield return LocationService;
             yield return PackageBuilder;
             yield return PackageArranger;
+            yield return TransferService;
         }
     }
 }

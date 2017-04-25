@@ -23,13 +23,20 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             PackageArranger = new ServiceTogglerViewModel<GenericState>(collection.PackageArranger, dispatcher);
             PackageArranger.PropertyChanged += (o, e) => _settings.Services.PackagingEnabled = PackageArranger.IsEnabled;
 
+            TransferService = new ServiceTogglerViewModel<GenericState>(collection.TransferService, dispatcher);
+            TransferService.PropertyChanged += (o, e) => _settings.Services.TransferEnabled = TransferService.IsEnabled;
+
             PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
 
             PackageManager = new PackageManagerViewModel(collection.PackageManager, collection.ApplicationSettings.Current.PackageManager, PackageArranger, dispatcher);
+
+            TransferSetup = new TransferServiceViewModel(collection.TransferService, TransferService, _settings.TransferService, dispatcher);
             This = this;
 
             ApplySettings();
         }
+
+        public TransferServiceViewModel TransferSetup { get; }
 
         public PackageBufferViewModel PackageBuffer { get; }
 
@@ -39,7 +46,11 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
         public IServiceTogglerViewModel PackageArranger { get; }
 
+        public IServiceTogglerViewModel TransferService { get; }
+
         public PackageManagerViewModel PackageManager { get; }
+
+        
 
         
         private void ApplySettings()
@@ -52,6 +63,11 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             if (_settings.Services.PackagingEnabled)
             {
                 var _ = _collection.PackageArranger.Start();
+            }
+
+            if (_settings.Services.TransferEnabled)
+            {
+                var _ = _collection.TransferService.Start();
             }
         }
     }

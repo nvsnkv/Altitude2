@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.Storage.Streams;
 using Newtonsoft.Json;
 using NV.Altitude2.Domain;
 
@@ -15,9 +16,6 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 {
     internal sealed class PackageManager : INotifyCollectionChanged
     {
-        private static readonly string ExternalFolderName = "Altitude2 Data";
-        private static readonly string PackagesFolderName = "Packages";
-
         private readonly JsonSerializer _serializer = new JsonSerializer();
         private IStorageFolder _folder;
         private int _packagesCount;
@@ -116,6 +114,24 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             {
                 await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }
+        }
+
+        public async Task<IInputStream> OpenPackageStream(string package, CancellationToken token)
+        {
+            if (_folder == null)
+            {
+                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
+            }
+
+            var file = await _folder.GetFileAsync(package);
+            token.ThrowIfCancellationRequested();
+
+            if (file != null)
+            {
+                return await file.OpenSequentialReadAsync();
+            }
+
+            return null;
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;

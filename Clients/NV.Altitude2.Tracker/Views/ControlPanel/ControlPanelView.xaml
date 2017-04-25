@@ -14,7 +14,8 @@
 
         <StackPanel>
             <controlPanel:PackageBufferView  DataContext="{Binding PackageBuffer}"/>
-            <controlPanel:PackageManagerView DataContext="{Binding PackageManager}"></controlPanel:PackageManagerView>
+            <controlPanel:PackageManagerView DataContext="{Binding PackageManager}"/>
+            <controlPanel:TranserServiceView DataContext="{Binding TransferSetup}"/>
         </StackPanel>
         
         <controlPanel:PipelineControlView Grid.Row="2" DataContext="{Binding This}"/>

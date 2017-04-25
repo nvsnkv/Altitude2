@@ -6,6 +6,7 @@
         {
             public bool LocationEnabled { get; set; }
             public bool PackagingEnabled { get; set; }
+            public bool TransferEnabled { get; set; }
         }
     }
 }

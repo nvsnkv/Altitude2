@@ -15,7 +15,7 @@
         Packaging
     </ToggleButton>
 
-    <ToggleButton Grid.Column="2" Style="{StaticResource ControlPanelButtonStyle}">
-        Transmission
+    <ToggleButton Grid.Column="2" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding PackageTransfer.IsEnabled, Mode=TwoWay}">
+        Transfer
     </ToggleButton>
 </Grid>

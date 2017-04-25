@@ -103,6 +103,7 @@
     <Compile Include="Models\Location\LocationServiceState.cs" />
     <Compile Include="Models\Packaging\PackageBuilder.cs" />
     <Compile Include="Models\Packaging\PackageArranger.cs" />
+    <Compile Include="Models\Packaging\PackageCleaner.cs" />
     <Compile Include="Models\Packaging\PackageManager.cs" />
     <Compile Include="Models\Pipeline\GenericState.cs" />
     <Compile Include="Models\Pipeline\InPipelineService.cs" />

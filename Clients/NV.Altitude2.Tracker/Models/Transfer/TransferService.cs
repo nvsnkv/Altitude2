@@ -27,7 +27,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
 
         public string ApiUrl
         {
-            get => _apiUrl.ToString();
+            get => _apiUrl?.ToString();
             set
             {
                 if (State != GenericState.Disabled)
@@ -71,8 +71,8 @@ namespace NV.Altitude2.Tracker.Models.Transfer
 
         protected override async Task DoStart()
         {
-            if (_apiUrl == null) return;
-            if (_isStarting) return;
+            if (_apiUrl == null) throw new InvalidOperationException("ApiUrl should not be empty!");
+            if (_isStarting) throw new InvalidOperationException("Attempt to parallel start");
             _isStarting = true;
 
             _client = new HttpClient
@@ -94,7 +94,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
 
         protected override Task DoStop()
         {
-            if (_isStopping) return Task.CompletedTask;
+            if (_isStopping) throw new InvalidOperationException("Attempt to parallel stop"); ;
             _isStopping = true;
 
             _client?.CancelPendingRequests();

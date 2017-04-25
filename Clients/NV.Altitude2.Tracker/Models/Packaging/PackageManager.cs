@@ -134,6 +134,22 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             return null;
         }
 
+        public async Task DeletePackage(string data, CancellationToken token)
+        {
+            if (_folder == null)
+            {
+                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
+            }
+
+            var file = await _folder.GetFileAsync(data);
+            token.ThrowIfCancellationRequested();
+
+            if (file != null)
+            {
+                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
+            }
+        }
+
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public event EventHandler Initilalized;

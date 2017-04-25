@@ -4,7 +4,6 @@ using System.Windows.Input;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Media;
-using NV.Altitude2.Tracker.Models.Pipeline;
 using NV.Altitude2.Tracker.Models.Settings;
 using NV.Altitude2.Tracker.Models.Transfer;
 
@@ -12,17 +11,18 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 {
     internal class TransferServiceViewModel : ViewModelBase
     {
-        private static readonly Brush GreenBrush = new SolidColorBrush(Color.FromArgb(255, 50, 205, 50));
-        private static readonly Brush RedBrush = new SolidColorBrush(Color.FromArgb(255, 220, 20, 60));
+        private static readonly Brush GreenBrush = new SolidColorBrush(Colors.LightGreen);
+        private static readonly Brush RedBrush = new SolidColorBrush(Colors.OrangeRed);
 
         private readonly TransferService _service;
         private readonly TransferServiceSettings _settings;
         private string _connectionStatus;
+        private Brush _statusColor;
 
         public TransferServiceViewModel(TransferService service, IServiceTogglerViewModel toggler, TransferServiceSettings settings, CoreDispatcher dispatcher) : base(dispatcher)
         {
             _service = service;
-            Toggler = toggler;
+            TransferService = toggler;
             _settings = settings;
 
             if (Uri.IsWellFormedUriString(_settings.ApiUrl, UriKind.Absolute))
@@ -37,7 +37,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             CheckConnection = new CheckConnectionCommand(this);
         }
 
-        public IServiceTogglerViewModel Toggler { get; }
+        public IServiceTogglerViewModel TransferService { get; }
 
         public string Url
         {
@@ -69,7 +69,16 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             }
         }
 
-        public Brush StatusColor { get; private set; }
+        public Brush StatusColor
+        {
+            get => _statusColor;
+            private set
+            {
+                if (Equals(value, _statusColor)) return;
+                _statusColor = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public ICommand CheckConnection { get; }
 

@@ -18,6 +18,7 @@ namespace NV.Altitude2.Tracker.Models
             PackageManager = new PackageManager();
             PackageArranger = new PackageArranger(PackageManager);
             TransferService = new TransferService(PackageManager);
+            PackageCleaner = new PackageCleaner(PackageManager);
             
         }
 
@@ -33,12 +34,15 @@ namespace NV.Altitude2.Tracker.Models
 
         internal TransferService TransferService { get; }
 
+        internal PackageCleaner PackageCleaner { get; }
+
         internal IEnumerable<PipelineService> GetPipline()
         {
             yield return LocationService;
             yield return PackageBuilder;
             yield return PackageArranger;
             yield return TransferService;
+            yield return PackageCleaner;
         }
     }
 }

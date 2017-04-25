@@ -66,9 +66,11 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             }
 
             if (_settings.Services.TransferEnabled)
-            {
+            {   
                 var _ = _collection.TransferService.Start();
             }
+
+            var __ = _collection.PackageCleaner.Start();
         }
     }
 }

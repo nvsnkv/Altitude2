@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{CABD1F8D-BC9A-435C-9A2F-BC88D39F6B97}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NV.Altitude2.Domain", "Domain\NV.Altitude2.Domain\NV.Altitude2.Domain.csproj", "{80794048-256E-42C9-8F60-93DD76864148}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NV.Altitude2.Tracker", "Clients\NV.Altitude2.Tracker\NV.Altitude2.Tracker.csproj", "{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{86874C5B-40E2-4546-82D9-DCD4D4731267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NV.Altitude2.ApiServer", "Server\NV.Altitude2.ApiServer\NV.Altitude2.ApiServer.csproj", "{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +25,18 @@ Global
 		Debug Tracker - Device|ARM = Debug Tracker - Device|ARM
 		Debug Tracker - Device|x64 = Debug Tracker - Device|x64
 		Debug Tracker - Device|x86 = Debug Tracker - Device|x86
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Deploy Tracker - Device|Any CPU = Deploy Tracker - Device|Any CPU
 		Deploy Tracker - Device|ARM = Deploy Tracker - Device|ARM
 		Deploy Tracker - Device|x64 = Deploy Tracker - Device|x64
 		Deploy Tracker - Device|x86 = Deploy Tracker - Device|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{80794048-256E-42C9-8F60-93DD76864148}.Debug Tracker - Desktop|Any CPU.ActiveCfg = Debug|Any CPU
@@ -43,6 +55,14 @@ Global
 		{80794048-256E-42C9-8F60-93DD76864148}.Debug Tracker - Device|x64.Build.0 = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Debug Tracker - Device|x86.ActiveCfg = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Debug Tracker - Device|x86.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|ARM.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|x64.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Debug|x86.Build.0 = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|Any CPU.ActiveCfg = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|Any CPU.Build.0 = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|ARM.ActiveCfg = Debug|Any CPU
@@ -51,6 +71,14 @@ Global
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|x64.Build.0 = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|x86.ActiveCfg = Debug|Any CPU
 		{80794048-256E-42C9-8F60-93DD76864148}.Deploy Tracker - Device|x86.Build.0 = Debug|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|ARM.ActiveCfg = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|ARM.Build.0 = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|x64.ActiveCfg = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|x64.Build.0 = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|x86.ActiveCfg = Release|Any CPU
+		{80794048-256E-42C9-8F60-93DD76864148}.Release|x86.Build.0 = Release|Any CPU
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.ActiveCfg = Debug|x64
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.Build.0 = Debug|x64
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|Any CPU.Deploy.0 = Debug|x64
@@ -75,6 +103,16 @@ Global
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|x86.ActiveCfg = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|x86.Build.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|x86.Deploy.0 = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|ARM.Build.0 = Debug|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|ARM.Deploy.0 = Debug|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x64.ActiveCfg = Debug|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x64.Build.0 = Debug|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x64.Deploy.0 = Debug|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.ActiveCfg = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.Build.0 = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.Deploy.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.ActiveCfg = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Build.0 = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Deploy.0 = Debug|ARM
@@ -87,6 +125,56 @@ Global
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|x86.ActiveCfg = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|x86.Build.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|x86.Deploy.0 = Debug|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|Any CPU.ActiveCfg = Release|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|ARM.ActiveCfg = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|ARM.Build.0 = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|ARM.Deploy.0 = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x64.ActiveCfg = Release|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x64.Build.0 = Release|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x64.Deploy.0 = Release|x64
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x86.ActiveCfg = Release|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x86.Build.0 = Release|x86
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Release|x86.Deploy.0 = Release|x86
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|Any CPU.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|ARM.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|ARM.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|x64.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|x64.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|x86.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Desktop|x86.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|Any CPU.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|ARM.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|ARM.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|x64.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|x64.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|x86.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug Tracker - Device|x86.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|ARM.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x64.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x86.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|Any CPU.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|ARM.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|ARM.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|x64.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|x64.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|x86.ActiveCfg = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|x86.Build.0 = Debug|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|ARM.Build.0 = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|x64.ActiveCfg = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|x64.Build.0 = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +182,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{80794048-256E-42C9-8F60-93DD76864148} = {CABD1F8D-BC9A-435C-9A2F-BC88D39F6B97}
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973} = {BC13729F-232C-46F6-8D03-AD0F9DFBF5BF}
+		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3} = {86874C5B-40E2-4546-82D9-DCD4D4731267}
 	EndGlobalSection
 EndGlobal

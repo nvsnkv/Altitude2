@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using NV.Altitude2.Tracker.Models.Packaging;
@@ -9,8 +11,8 @@ namespace NV.Altitude2.Tracker.Models.Transfer
 {
     internal class TransferService:InOutPipelineService<string, string, GenericState>
     {
-        private static readonly Uri Ping = new Uri("/ping", UriKind.Relative);
-        private static readonly Uri Packages = new Uri("/package", UriKind.Relative);
+        private static readonly Uri Ping = new Uri("/api/measurements/count", UriKind.Relative);
+        private static readonly Uri Packages = new Uri("/api/measurements", UriKind.Relative);
 
         private readonly PackageManager _manager;
 
@@ -24,6 +26,8 @@ namespace NV.Altitude2.Tracker.Models.Transfer
         {
             _manager = manager;
         }
+
+        public string DeviceId { get; set; }
 
         public string ApiUrl
         {
@@ -120,8 +124,18 @@ namespace NV.Altitude2.Tracker.Models.Transfer
                     Content = content
                 };
 
+                if (!string.IsNullOrEmpty(DeviceId))
+                {
+                    request.Headers.Add("X-DEVICE-ID", DeviceId);
+                }
+
                 var response = await _client.SendAsync(request, Token);
+                
                 response.EnsureSuccessStatusCode();
+                if (response.Headers.TryGetValues("X-DEVICE-ID", out IEnumerable<string> values))
+                {
+                    DeviceId = values.First();
+                }
             }
 
             await SendNext(data);

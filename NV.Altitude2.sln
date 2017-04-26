@@ -113,9 +113,9 @@ Global
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.ActiveCfg = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.Build.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug|x86.Deploy.0 = Debug|x86
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.ActiveCfg = Debug|ARM
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Build.0 = Debug|ARM
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Deploy.0 = Debug|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.ActiveCfg = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Build.0 = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|Any CPU.Deploy.0 = Release|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|ARM.ActiveCfg = Release|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|ARM.Build.0 = Release|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Deploy Tracker - Device|ARM.Deploy.0 = Release|ARM
@@ -160,7 +160,6 @@ Global
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Debug|x86.Build.0 = Debug|Any CPU
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|Any CPU.Build.0 = Debug|Any CPU
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|ARM.ActiveCfg = Debug|Any CPU
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|ARM.Build.0 = Debug|Any CPU
 		{4E523C5B-7587-4E4F-BB3F-C5010907B8F3}.Deploy Tracker - Device|x64.ActiveCfg = Debug|Any CPU

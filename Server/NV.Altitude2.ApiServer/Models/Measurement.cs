@@ -3,7 +3,7 @@ using NV.Altitude2.Domain;
 
 namespace NV.Altitude2.ApiServer.Models
 {
-    internal class DbMeasurement
+    public class DbMeasurement
     {
         public long Id { get; set; }
 

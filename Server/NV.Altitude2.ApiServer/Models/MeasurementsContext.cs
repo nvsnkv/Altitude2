@@ -2,7 +2,7 @@
 
 namespace NV.Altitude2.ApiServer.Models
 {
-    internal class MeasurementsContext : DbContext
+    public class MeasurementsContext : DbContext
     {
         public MeasurementsContext(DbContextOptions options) : base(options)
         {

@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://192.168.1.50:54123/",
+      "applicationUrl": "http://192.168.1.10:7000/",
       "sslPort": 0
     }
   },
@@ -19,11 +19,11 @@
     "NV.Altitude2.ApiServer": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/measurements/count",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://192.168.1.50:7000"
+      "applicationUrl": "http://192.168.1.10:7000"
     }
   }
 }

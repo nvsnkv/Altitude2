@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace NV.Altitude2.ApiServer.Models
 {
@@ -22,6 +23,13 @@ namespace NV.Altitude2.ApiServer.Models
             modelBuilder.Entity<DbMeasurement>()
                 .Property(m => m.Id)
                 .HasDefaultValueSql("NEXT VALUE FOR MeasurementNumbers");
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(decimal)))
+            {
+                property.Relational().ColumnType = "decimal(18, 10)";
+            }
         }
     }
 }

@@ -9,8 +9,4 @@
     <Description>Altitude2 Domain</Description>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
-  </ItemGroup>
-
 </Project>

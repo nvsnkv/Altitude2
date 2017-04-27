@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{CABD1F8D-BC9A-435C-9A2F-BC88D39F6B97}"
 EndProject
@@ -91,9 +91,9 @@ Global
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|x86.ActiveCfg = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|x86.Build.0 = Debug|x86
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Desktop|x86.Deploy.0 = Debug|x86
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.ActiveCfg = Debug|ARM
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.Build.0 = Debug|ARM
-		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.Deploy.0 = Debug|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.ActiveCfg = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.Build.0 = Release|ARM
+		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|Any CPU.Deploy.0 = Release|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|ARM.ActiveCfg = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|ARM.Build.0 = Debug|ARM
 		{6CCF5ABA-DF59-4E37-BDD2-F2114E57F973}.Debug Tracker - Device|ARM.Deploy.0 = Debug|ARM

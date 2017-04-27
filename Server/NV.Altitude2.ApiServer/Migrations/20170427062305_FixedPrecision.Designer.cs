@@ -8,9 +8,10 @@ using NV.Altitude2.ApiServer.Models;
 namespace NV.Altitude2.ApiServer.Migrations
 {
     [DbContext(typeof(MeasurementsContext))]
-    partial class MeasurementsContextModelSnapshot : ModelSnapshot
+    [Migration("20170427062305_FixedPrecision")]
+    partial class FixedPrecision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

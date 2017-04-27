@@ -36,7 +36,7 @@ namespace NV.Altitude2.Tracker.Models
 
         internal PackageCleaner PackageCleaner { get; }
 
-        internal IEnumerable<PipelineService> GetPipline()
+        internal IEnumerable<PipelineService> GetPipeline()
         {
             yield return LocationService;
             yield return PackageBuilder;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Windows.Input;
 using Windows.UI.Core;
 using NV.Altitude2.Tracker.Models.Packaging;
@@ -9,20 +10,23 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
     internal class PackageManagerViewModel : ViewModelBase
     {
         private readonly PackageManager _manager;
-        private readonly PackageManagerSettigns _settigns;
         private string _packagesFolder;
 
-        public PackageManagerViewModel(PackageManager packageManager, PackageManagerSettigns settigns, IServiceTogglerViewModel packageArranger, CoreDispatcher dispatcher) : base(dispatcher)
+        public PackageManagerViewModel(PackageManager packageManager, IServiceTogglerViewModel packageArranger, CoreDispatcher dispatcher) : base(dispatcher)
         {
             PackageArranger = packageArranger;
             _manager = packageManager;
-            _settigns = settigns;
-            _manager.SetFolderPath(_settigns.FolderPath);
-
-            ClearFolder = new ClearFolderCommand(_manager);
+        
+            ClearFolder = new ClearFolderCommand(_manager, packageArranger);
             SelectFolder = new SelectFolderCommand(_manager, packageArranger);
             _packagesFolder = GetPackagesFolder();
-            packageManager.Initilalized += async (o, e) => await Dispatch(() => PackagesFolder = GetPackagesFolder());
+            packageManager.CollectionChanged += async (o, e) =>
+            {
+                if (e.Action.Equals(NotifyCollectionChangedAction.Reset))
+                {
+                    await Dispatch(() => PackagesFolder = GetPackagesFolder());
+                }
+            };
         }
 
         public IServiceTogglerViewModel PackageArranger { get; }
@@ -67,7 +71,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
         public void Execute(object parameter)
         {
-            var _ = _manager.ChooseExternalFolder();
+            var _ = _manager.SetFolder();
         }
 
         public event EventHandler CanExecuteChanged;
@@ -76,16 +80,18 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
     internal class ClearFolderCommand : ICommand
     {
         private readonly PackageManager _manager;
+        private readonly IServiceTogglerViewModel _packageArranger;
 
-        public ClearFolderCommand(PackageManager manager)
+        public ClearFolderCommand(PackageManager manager, IServiceTogglerViewModel packageArranger)
         {
             _manager = manager;
-            _manager.Initilalized += (o, e) => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+            _packageArranger = packageArranger;
+            _packageArranger.PropertyChanged += (o, e) => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public bool CanExecute(object parameter)
         {
-            return _manager.IsInitialized;
+            return _packageArranger.IsEnabled;
         }
 
         public async void Execute(object parameter)

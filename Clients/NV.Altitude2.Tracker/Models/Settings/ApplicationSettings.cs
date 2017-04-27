@@ -8,20 +8,12 @@ namespace NV.Altitude2.Tracker.Models.Settings
     {
         private static AppSettings Default { get; } = new AppSettings()
         {
-            Services = new AppSettings.ServiceStates()
-            {
-                LocationEnabled = false,
-            },
             PackageBuffer = new PackageBufferSettings()
             {
                 HorizontalAccuracy = 3m,
                 VerticalAccuracy = 3m,
 
                 PackageSize = 100
-            },
-            PackageManager = new PackageManagerSettigns()
-            {
-                FolderPath = null
             },
             TransferService = new TransferServiceSettings()
             {
@@ -39,9 +31,7 @@ namespace NV.Altitude2.Tracker.Models.Settings
                 try
                 {
                     var result = JsonConvert.DeserializeObject<AppSettings>(serialized);
-                    if (result.Services != null
-                        && result.PackageBuffer != null
-                        && result.PackageManager != null
+                    if (result.PackageBuffer != null
                         && result.TransferService != null)
                     {
                         Current = result;

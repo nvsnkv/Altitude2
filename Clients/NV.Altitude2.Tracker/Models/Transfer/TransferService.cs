@@ -58,7 +58,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
             };
             try
             {
-                var response = await client.GetAsync(Ping, Token);
+                var response = await client.GetAsync(Ping);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception e)
@@ -113,11 +113,11 @@ namespace NV.Altitude2.Tracker.Models.Transfer
 
         protected override async Task Handle(string data)
         {
-            var package = await _manager.OpenPackageStream(data, Token);
+            var package = await _manager.OpenPackageStream(data);
             if (package == null) return;
 
             using (package)
-            using (var content = new StreamContent(package.AsStreamForRead()))
+            using (var content = new StreamContent(package))
             {
                 var request = new HttpRequestMessage(HttpMethod.Put, Packages)
                 {
@@ -129,7 +129,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
                     request.Headers.Add("X-DEVICE-ID", DeviceId);
                 }
 
-                var response = await _client.SendAsync(request, Token);
+                var response = await _client.SendAsync(request);
                 
                 response.EnsureSuccessStatusCode();
                 if (response.Headers.TryGetValues("X-DEVICE-ID", out IEnumerable<string> values))

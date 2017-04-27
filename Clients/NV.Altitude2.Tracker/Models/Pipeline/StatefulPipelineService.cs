@@ -1,13 +1,12 @@
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace NV.Altitude2.Tracker.Models.Pipeline
 {
-    internal abstract class StatefulPipelineService<TS> : PipelineService where TS : struct
+    internal abstract class StatefulPipelineService<TS> : PipelineService , IStopable where TS : struct
     {
         private readonly TS _stoppedState;
- 
+
         private TS _state;
 
         private bool _initialized;
@@ -20,8 +19,12 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
         protected internal TS State
         {
             get => _state;
-            protected set {
-                if (_state.Equals(value)) { return; }
+            protected set
+            {
+                if (_state.Equals(value))
+                {
+                    return;
+                }
 
                 _state = value;
 
@@ -29,10 +32,8 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             }
         }
 
-        internal async Task Start()
+        public async Task Start()
         {
-            if (Token.IsCancellationRequested) return;
-
             try
             {
                 if (!_initialized)
@@ -47,16 +48,17 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             }
         }
 
-        internal async Task Stop()
+        public async Task Stop()
         {
-            if (Token.IsCancellationRequested) return;
-
-            if (State.Equals(_stoppedState)) { return; }
+            if (State.Equals(_stoppedState))
+            {
+                return;
+            }
             try
             {
                 await DoStop();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 RaiseErrorOccured(e);
             }
@@ -64,8 +66,11 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         private async Task Initialize()
         {
-            if (_initialized) { return; }
-            if (Token == CancellationToken.None) { return; }
+            if (_initialized)
+            {
+                return;
+            }
+            
             _initialized = await DoInitialize();
         }
 
@@ -89,9 +94,9 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         protected abstract Task DoHandleData(PipelineData data);
 
-        internal event EventHandler<ServiceStateChangedEventArgs<TS>> StateChanged;
+        public event EventHandler<ServiceStateChangedEventArgs<TS>> StateChanged;
 
-        protected virtual void RaiseStateChanged (TS state)
+        protected virtual void RaiseStateChanged(TS state)
         {
             StateChanged?.Invoke(this, new ServiceStateChangedEventArgs<TS>(state));
         }

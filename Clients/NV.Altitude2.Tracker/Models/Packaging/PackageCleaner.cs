@@ -16,7 +16,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
         {
             if (!_manager.IsInitialized)
             {
-                await _manager.Initialize(Token);
+                await _manager.Initialize();
             }
 
             return true;
@@ -36,7 +36,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
 
         protected override async Task Handle(string data)
         {
-            await _manager.DeletePackage(data, Token);
+            await _manager.DeletePackage(data);
         }
     }
 }

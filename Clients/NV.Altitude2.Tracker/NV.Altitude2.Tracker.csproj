@@ -107,6 +107,7 @@
     <Compile Include="Models\Packaging\PackageManager.cs" />
     <Compile Include="Models\Pipeline\GenericState.cs" />
     <Compile Include="Models\Pipeline\InPipelineService.cs" />
+    <Compile Include="Models\Pipeline\IStopable.cs" />
     <Compile Include="Models\Pipeline\OutPipelineService.cs" />
     <Compile Include="Models\Pipeline\Pipeline.cs" />
     <Compile Include="Models\Pipeline\PipelineData.cs" />

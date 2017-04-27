@@ -8,19 +8,15 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
     {
         private PipelineService _successor;
 
-        protected CancellationToken Token { get; private set; }
-
         protected PipelineService() { }
 
-        internal PipelineService Concat(PipelineService service)
+        public PipelineService Concat(PipelineService service)
         {
             return _successor = service ?? throw new ArgumentNullException(nameof(service)); ;
         }
 
-        internal async Task Receive(PipelineData data)
+        private async Task Receive(PipelineData data)
         {
-            if (Token.IsCancellationRequested) return;
-
             try
             {
                 await HandleData(data);
@@ -35,15 +31,8 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
 
         protected virtual async Task SendNext(PipelineData data)
         {
-            if (Token.IsCancellationRequested) return;
-
             var receive = _successor?.Receive(data);
             if (receive != null) { await receive; }
-        }
-
-        internal void SetCancellationToken(CancellationToken token)
-        {
-            Token = token;
         }
 
         internal event EventHandler<ServiceErrorEventArgs> ErrorOccured;

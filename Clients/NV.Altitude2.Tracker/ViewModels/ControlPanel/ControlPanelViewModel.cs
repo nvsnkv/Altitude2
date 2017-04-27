@@ -3,37 +3,38 @@ using Windows.UI.Core;
 using NV.Altitude2.Tracker.Models;
 using NV.Altitude2.Tracker.Models.Location;
 using NV.Altitude2.Tracker.Models.Pipeline;
-using NV.Altitude2.Tracker.Models.Settings;
 
 namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 {
     internal class ControlPanelViewModel : ViewModelBase
     {
-        private readonly ServicesCollection _collection;
-        private readonly AppSettings _settings;
-        
-        internal ControlPanelViewModel(ServicesCollection collection, CoreDispatcher dispatcher):base(dispatcher)
+        private readonly Pipeline _pipeline;
+        private bool _isPipelineRunning;
+
+        internal ControlPanelViewModel(Pipeline pipeline, ServicesCollection collection, CoreDispatcher dispatcher):base(dispatcher)
         {
-            _collection = collection;
-            _settings = collection.ApplicationSettings.Current;
+            _pipeline = pipeline;
+            var settings = collection.ApplicationSettings.Current;
+
+            _isPipelineRunning = pipeline.State != GenericState.Disabled;
+            pipeline.StateChanged += async (o, e) => await Dispatch(() =>
+            {
+                _isPipelineRunning = e.State.Equals(GenericState.Enabled);
+                RaisePropertyChanged(nameof(IsPipelineRunning));
+            });
 
             LocationService = new ServiceTogglerViewModel<LocationServiceState>(collection.LocationService, dispatcher);
-            LocationService.PropertyChanged += (o, e) => _settings.Services.LocationEnabled = LocationService.IsEnabled;
-
+            
             PackageArranger = new ServiceTogglerViewModel<GenericState>(collection.PackageArranger, dispatcher);
-            PackageArranger.PropertyChanged += (o, e) => _settings.Services.PackagingEnabled = PackageArranger.IsEnabled;
-
+            
             TransferService = new ServiceTogglerViewModel<GenericState>(collection.TransferService, dispatcher);
-            TransferService.PropertyChanged += (o, e) => _settings.Services.TransferEnabled = TransferService.IsEnabled;
+            
+            PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, settings.PackageBuffer, dispatcher);
 
-            PackageBuffer = new PackageBufferViewModel(collection.PackageBuilder, _settings.PackageBuffer, dispatcher);
+            PackageManager = new PackageManagerViewModel(collection.PackageManager, PackageArranger, dispatcher);
 
-            PackageManager = new PackageManagerViewModel(collection.PackageManager, collection.ApplicationSettings.Current.PackageManager, PackageArranger, dispatcher);
-
-            TransferSetup = new TransferServiceViewModel(collection.TransferService, TransferService, _settings.TransferService, dispatcher);
+            TransferSetup = new TransferServiceViewModel(collection.TransferService, TransferService, settings.TransferService, dispatcher);
             This = this;
-
-            ApplySettings();
         }
 
         public TransferServiceViewModel TransferSetup { get; }
@@ -50,27 +51,21 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
 
         public PackageManagerViewModel PackageManager { get; }
 
-        
-
-        
-        private void ApplySettings()
+        public bool IsPipelineRunning
         {
-            if (_settings.Services.LocationEnabled)
+            get => _isPipelineRunning;
+            private set
             {
-                var _ = _collection.LocationService.Start();
+                if (value == _isPipelineRunning) return;
+                if (value)
+                {
+                    var _ = _pipeline.Start();
+                }
+                else
+                {
+                    var _ = _pipeline.Stop();
+                }
             }
-
-            if (_settings.Services.PackagingEnabled)
-            {
-                var _ = _collection.PackageArranger.Start();
-            }
-
-            if (_settings.Services.TransferEnabled)
-            {   
-                var _ = _collection.TransferService.Start();
-            }
-
-            var __ = _collection.PackageCleaner.Start();
         }
     }
 }

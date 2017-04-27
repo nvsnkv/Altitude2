@@ -2,184 +2,80 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
-using Newtonsoft.Json;
 using NV.Altitude2.Domain;
+using NV.Altitude2.Tracker.Models.Pipeline;
 
 namespace NV.Altitude2.Tracker.Models.Packaging
 {
     internal sealed class PackageManager : INotifyCollectionChanged
     {
-        private readonly JsonSerializer _serializer = new JsonSerializer();
-        private IStorageFolder _folder;
-        private int _packagesCount;
-        private string _folderPath;
+        public bool IsInitialized { get; }
 
-        public int PackagesCount => _packagesCount;
+        public string FolderPath { get; }
 
-        public string FolderPath => _folderPath;
-        public bool IsInitialized => _folder != null;
+        public int PackagesCount { get; set; }
 
-        
-        public async Task Initialize(CancellationToken token)
+        public async Task Initialize()
         {
-            _folder = await OpenFolderByPath() ?? await ApplicationData.Current.LocalCacheFolder.GetFolderAsync("Packages");
-            token.ThrowIfCancellationRequested();
-
-            var files = await _folder.GetFilesAsync();
-            token.ThrowIfCancellationRequested();
-
-            _packagesCount = files?.Count ?? 0;
-            RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            RaiseInitilalized();
+            throw new System.NotImplementedException();
+            RaiseReset();
         }
 
-        public void SetFolderPath(string path = null)
+        public async Task DeletePackage(string package)
         {
-            _folderPath = path;
+            throw new System.NotImplementedException();
+            RaiseRemoved(package);
         }
 
-        public async Task ChooseExternalFolder()
+        public async Task<PipelineData> GetNextPackage()
         {
-            var picker = new FolderPicker()
-            {
-                SuggestedStartLocation = PickerLocationId.ComputerFolder,
-                ViewMode = PickerViewMode.List
-            };
-
-            var folder = await picker.PickSingleFolderAsync();
-            if (folder != null)
-            {
-                SetFolderPath(folder.Path);
-                await Initialize(CancellationToken.None);
-            }
+            throw new System.NotImplementedException();
         }
 
-        public async Task CreatePackage(List<Measurement> data, CancellationToken token)
+        public async Task CreatePackage(List<Measurement> data)
         {
-            if (_folder == null)
-            {
-                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
-            }
-
-            var filename = $"p_{Guid.NewGuid()}.a2p";
-            token.ThrowIfCancellationRequested();
-
-            var file = await _folder.CreateFileAsync(filename, CreationCollisionOption.FailIfExists);
-
-            using (var stream = new DeflateStream(await file.OpenStreamForWriteAsync(), CompressionMode.Compress))
-            using (var writer = new JsonTextWriter(new StreamWriter(stream)))
-            {
-                _serializer.Serialize(writer, data);
-                await writer.FlushAsync(token);
-            }
-
-            _packagesCount++;
-            token.ThrowIfCancellationRequested();
-
-            RaiseCollectionChanged(
-                new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { filename }));
-
+            throw new System.NotImplementedException();
+            var name = $"p_{Guid.NewGuid()}.a2p";
+            RaiseAdded(name);
         }
 
-        public async Task<string> GetNextPackage(CancellationToken token)
+        public async Task<Stream> OpenPackageStream(string data)
         {
-            if (_folder == null)
-            {
-                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
-            }
-            token.ThrowIfCancellationRequested();
-
-            var files = await _folder.GetFilesAsync();
-            token.ThrowIfCancellationRequested();
-
-            return files.Select(f => f.Name).FirstOrDefault();
+            throw new NotImplementedException();
         }
 
         public async Task Clear()
         {
-            if (_folder == null)
-            {
-                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
-            }
-
-            var files = await _folder.GetFilesAsync();
-            foreach (var file in files)
-            {
-                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-            }
-        }
-
-        public async Task<IInputStream> OpenPackageStream(string package, CancellationToken token)
-        {
-            if (_folder == null)
-            {
-                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
-            }
-
-            var file = await _folder.GetFileAsync(package);
-            token.ThrowIfCancellationRequested();
-
-            if (file != null)
-            {
-                return await file.OpenSequentialReadAsync();
-            }
-
-            return null;
-        }
-
-        public async Task DeletePackage(string data, CancellationToken token)
-        {
-            if (_folder == null)
-            {
-                throw new InvalidOperationException("PackageManager needs to be initialized before any other action!");
-            }
-
-            var file = await _folder.GetFileAsync(data);
-            token.ThrowIfCancellationRequested();
-
-            if (file != null)
-            {
-                await file.DeleteAsync(StorageDeleteOption.PermanentDelete);
-            }
+            throw new NotImplementedException();
+            RaiseReset();
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        public event EventHandler Initilalized;
 
         private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             CollectionChanged?.Invoke(this, e);
         }
 
-        private void RaiseInitilalized()
+        private void RaiseAdded(string package)
         {
-            Initilalized?.Invoke(this, EventArgs.Empty);
+            RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new[] { package }));
         }
 
-        private async Task<StorageFolder> OpenFolderByPath()
+        private void RaiseRemoved(string package)
         {
-            if (string.IsNullOrEmpty(_folderPath))
-            {
-                return null;
-            }
+            RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new[] { package }));
+        }
 
-            try
-            {
-                return await StorageFolder.GetFolderFromPathAsync(_folderPath);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+        private void RaiseReset()
+        {
+            RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
 
+        public async Task SetFolder()
+        {
+            throw new NotImplementedException();
         }
     }
 }

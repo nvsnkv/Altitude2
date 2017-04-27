@@ -9,8 +9,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <StackPanel>
@@ -21,6 +21,8 @@
         
         
         <controlPanel:PipelineControlView Grid.Row="2" DataContext="{Binding This}"/>
-        <ToggleButton Grid.Row="3" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding IsPipelineRunning}"></ToggleButton>
+        <ToggleButton Grid.Row="3" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding IsPipelineRunning, Mode=TwoWay}">
+            PIPELINE
+        </ToggleButton>
     </Grid>
 </PivotItem>

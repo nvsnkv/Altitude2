@@ -20,6 +20,11 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
             pipeline.StateChanged += async (o, e) => await Dispatch(() =>
             {
                 _isPipelineRunning = e.State.Equals(GenericState.Enabled);
+                if (!_isPipelineRunning)
+                {
+                    collection.ApplicationSettings.Save();
+                }
+
                 RaisePropertyChanged(nameof(IsPipelineRunning));
             });
 
@@ -54,7 +59,7 @@ namespace NV.Altitude2.Tracker.ViewModels.ControlPanel
         public bool IsPipelineRunning
         {
             get => _isPipelineRunning;
-            private set
+            set
             {
                 if (value == _isPipelineRunning) return;
                 if (value)

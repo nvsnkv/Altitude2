@@ -6,6 +6,7 @@ namespace NV.Altitude2.Tracker.ViewModels.RightNow
 {
     internal class PositionViewModel : ViewModelBase
     {
+        private readonly LocationService _locationService;
         private decimal _latitude;
         private decimal _longitude;
         private decimal _altitude;
@@ -15,7 +16,19 @@ namespace NV.Altitude2.Tracker.ViewModels.RightNow
 
         public PositionViewModel(LocationService locationService, CoreDispatcher dispatcher) : base(dispatcher)
         {
+            _locationService = locationService;
             locationService.LocationChanged += HandleLocationChanged;
+        }
+
+        public bool FakesEnabled
+        {
+            get { return _locationService.SendFakeData; }
+            set
+            {
+                if (value == _locationService.SendFakeData) return;
+                _locationService.SendFakeData = value;
+                RaisePropertyChanged();
+            }
         }
 
         public decimal Latitude

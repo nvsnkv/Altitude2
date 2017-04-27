@@ -31,7 +31,7 @@
                 <Run Text="{Binding PackagesCount}"/>
                 <Run>packages are waiting to be sent, buffered</Run>
                 <Run Text="{Binding MeasurementsCount}"/>
-                <Run>measurements</Run>
+                <Run>items</Run>
             </TextBlock>
         </StackPanel>
     </Grid>

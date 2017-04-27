@@ -115,9 +115,10 @@ namespace NV.Altitude2.Tracker.Models.Transfer
         {
             var package = await _manager.OpenPackageStream(data);
             if (package == null) return;
-
+            
             using (package)
-            using (var content = new StreamContent(package))
+            using (var readStream = package.AsStreamForRead())
+            using (var content = new StreamContent(readStream))
             {
                 var request = new HttpRequestMessage(HttpMethod.Put, Packages)
                 {
@@ -130,7 +131,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
                 }
 
                 var response = await _client.SendAsync(request);
-                
+
                 response.EnsureSuccessStatusCode();
                 if (response.Headers.TryGetValues("X-DEVICE-ID", out IEnumerable<string> values))
                 {
@@ -138,6 +139,7 @@ namespace NV.Altitude2.Tracker.Models.Transfer
                 }
             }
 
+           
             await SendNext(data);
         }
     }

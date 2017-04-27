@@ -51,9 +51,11 @@ namespace NV.Altitude2.Tracker
             Debug.WriteLine($"Error: {e.Error.Message}{Environment.NewLine}{e.Error}");
         }
 
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            _services.ApplicationSettings.Save();
+            var deferral = e.SuspendingOperation.GetDeferral();
+            await _pipeline.Stop();
+            deferral.Complete();
         }
     }
 }

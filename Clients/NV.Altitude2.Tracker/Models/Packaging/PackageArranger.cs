@@ -22,8 +22,6 @@ namespace NV.Altitude2.Tracker.Models.Packaging
         protected override async Task<bool> DoInitialize()
         {
             await _manager.Initialize();
-            var token = _cts.Token;
-           
             return true;
         }
 
@@ -53,7 +51,16 @@ namespace NV.Altitude2.Tracker.Models.Packaging
                     {
                         RaiseErrorOccured(e);
                     }
-                    await Task.Delay(1000, token);
+
+                    try
+                    {
+                        await Task.Delay(1000, token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        break;
+                    }
+
                 } while (!token.IsCancellationRequested);
 
             }), token);
@@ -75,7 +82,7 @@ namespace NV.Altitude2.Tracker.Models.Packaging
             try
             {
                 cts.Cancel();
-                await _pollingTask;
+                await _pollingTask.ConfigureAwait(true);
             }
             catch (TaskCanceledException)
             {

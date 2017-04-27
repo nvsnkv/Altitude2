@@ -47,7 +47,11 @@ namespace NV.Altitude2.Tracker.Models.Pipeline
             lock (_sessionLock)
             {
                 if (_session != null) return;
-                _session = new ExtendedExecutionSession();
+                _session = new ExtendedExecutionSession()
+                {
+                    Reason = ExtendedExecutionReason.LocationTracking,
+                    Description = "Main tracker activity"
+                };
             }
 
             var result = await _session.RequestExtensionAsync();

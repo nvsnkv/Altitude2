@@ -7,15 +7,15 @@
         <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <ToggleButton Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding LocationService.IsEnabled, Mode=TwoWay}">
+    <ToggleButton Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding LocationService.IsEnabled, Mode=TwoWay}" IsEnabled="{Binding IsPipelineRunning}">
         Location
     </ToggleButton>
 
-    <ToggleButton Grid.Column="1" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding PackageArranger.IsEnabled, Mode=TwoWay}">
+    <ToggleButton Grid.Column="1" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding PackageArranger.IsEnabled, Mode=TwoWay}" IsEnabled="{Binding IsPipelineRunning}">
         Packaging
     </ToggleButton>
 
-    <ToggleButton Grid.Column="2" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding TransferService.IsEnabled, Mode=TwoWay}">
+    <ToggleButton Grid.Column="2" Style="{StaticResource ControlPanelButtonStyle}" IsChecked="{Binding TransferService.IsEnabled, Mode=TwoWay}" IsEnabled="{Binding IsPipelineRunning}">
         Transfer
     </ToggleButton>
 </Grid>

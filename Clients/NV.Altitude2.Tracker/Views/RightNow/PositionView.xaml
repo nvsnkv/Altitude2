@@ -41,6 +41,9 @@
                Style="{StaticResource TitleTextBlockStyle}" FontSize="72"
                Text="{Binding Altitude, Converter={StaticResource MetersConverter}}"/>
 
+    <ToggleButton Grid.Row="1" Width="50" Height="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="25"
+                  IsChecked="{Binding FakesEnabled, Mode=TwoWay}">F</ToggleButton>
+
     <Grid Grid.Row="2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>

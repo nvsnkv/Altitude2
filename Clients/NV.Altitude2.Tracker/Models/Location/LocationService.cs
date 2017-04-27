@@ -21,6 +21,49 @@ namespace NV.Altitude2.Tracker.Models.Location
 
         private Geolocator _locator;
 
+        private Task _fakeProvider;
+        private bool _sendFakeData;
+
+        public bool SendFakeData
+        {
+            get => _sendFakeData;
+            set {
+                if (value == _sendFakeData) return;
+                _sendFakeData = value;
+
+                if (value)
+                {
+                    StartFakeProvider();
+                }
+                else
+                {
+                    StopFakeProvider();
+                }
+            }
+        }
+
+        private void StopFakeProvider()
+        {
+            if (!_fakeProvider.IsCompleted)
+            {
+                _fakeProvider.Wait(10000);
+            }
+        }
+
+        private void StartFakeProvider()
+        {
+            _fakeProvider = Task.Run(async () =>
+            {
+                do
+                {
+                    var measurement = new Measurement(new Point(0, 0, 10001), new Accuracy(1, 1), DateTime.Now);
+                    RaiseLocationChanged(measurement);
+                    await SendNext(measurement);
+                    await Task.Delay(1000);
+                } while (_sendFakeData);
+            });
+        }
+
         protected override Task<bool> DoInitialize()
         {
             return Task.FromResult(true);

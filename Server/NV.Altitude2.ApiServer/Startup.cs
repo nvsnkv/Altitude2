@@ -38,7 +38,7 @@ namespace NV.Altitude2.ApiServer
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc().UseStaticFiles();
         }
     }
 }
